@@ -108,4 +108,4 @@ Load the model:
 model = joblib.load(local_path)
 ```
 ### 2. From a local file
-It is also possible to load the model from a local file, either by cloning the repo and following the steps above to train and generate the model, or by downloading the model file directly from the GitHub release page. For quick inspection, open the Actions tab, select the workflow run that built the model, and download the .joblib file under Artifacts.
+It is also possible to load the model from a local file, either by cloning the repo and following the steps above to train and generate the model, or by downloading the model file directly from the GitHub release page.

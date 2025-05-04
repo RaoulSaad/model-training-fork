@@ -26,6 +26,7 @@ jobs:
           default_bump:        false
           default_prerelease_bump: false
           append_to_pre_release_tag: pre
+          release_branches:         ''            # no branch generates stable tags here
           pre_release_branches: main
 
       - name: Resolve version
