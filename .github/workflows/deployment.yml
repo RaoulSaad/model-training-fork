@@ -76,7 +76,7 @@ jobs:
             --model-output models/sentiment_pipeline-v${{ steps.resolve_version.outputs.version }}.joblib
 
       - name: Upload model artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: sentiment_pipeline-v${{ steps.resolve_version.outputs.version }}.joblib
           path: models/sentiment_pipeline-v${{ steps.resolve_version.outputs.version }}.joblib
