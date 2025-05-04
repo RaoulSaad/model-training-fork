@@ -16,8 +16,8 @@ This repository contains tools and scripts to train, evaluate, and export a sent
 ├── requirements.txt        # Python dependencies
 ├── README.md               # This file
 ├── .github/workflows/      # CI/CD workflows
-│   ├── train-release.yaml  # Automate train & GitHub Release on tag\
-│   └── CODEOWNERS
+    ├── train-release.yaml  # Automate train & GitHub Release on tag\
+    └── CODEOWNERS
 
 ```
 
