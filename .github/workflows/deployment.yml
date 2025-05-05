@@ -26,7 +26,6 @@ jobs:
           default_bump:        false
           default_prerelease_bump: false
           append_to_pre_release_tag: pre
-          release_branches:         ''            # no branch generates stable tags here
           pre_release_branches: main
 
       - name: Resolve version
@@ -78,8 +77,8 @@ jobs:
       - name: Upload model artifact
         uses: actions/upload-artifact@v4
         with:
-          name: sentiment_pipeline-${{ steps.resolve_version.outputs.version }}.joblib
-          path: models/sentiment_pipeline-${{ steps.resolve_version.outputs.version }}.joblib
+          name: sentiment_pipeline-v${{ steps.resolve_version.outputs.version }}.joblib
+          path: models/sentiment_pipeline-$v{{ steps.resolve_version.outputs.version }}.joblib
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
@@ -103,4 +102,6 @@ jobs:
           default_bump:        patch
           default_prerelease_bump: prepatch
           append_to_pre_release_tag: pre
+          release_branches:         ''            # no branch generates stable tags here
           pre_release_branches: main
+      - run: echo "Created tag → ${{ steps.bump_pre.outputs.new_tag }}"
