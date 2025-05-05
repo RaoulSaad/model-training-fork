@@ -70,7 +70,7 @@ jobs:
     - name: Train model
       run: |
         python src/train.py \
-          --version     ${{ steps.resolve_version.outputs.version }} \
+          --version     ${{ steps.tag_version.outputs.new_tag }} \
           --output-path models/sentiment_pipeline.joblib
     
     - name: Upload artifact
