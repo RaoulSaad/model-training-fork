@@ -27,46 +27,44 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get current version tag
-        id: get_version
+      - name: Bump stable version
+        id: bump_stable_tag
         uses: mathieudutour/github-tag-action@v6.2
         with:
-          github_token:        ${{ secrets.GITHUB_TOKEN }}
-          tag_prefix:          v
-          default_bump:        ${{ github.event.inputs.bump_level }}
-          default_prerelease_bump: false
-          append_to_pre_release_tag: pre
-          pre_release_branches: main
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          release_branches: main
+          default_bump: ${{ github.event.inputs.bump_level }}  
+          tag_prefix: v
 
-      - name: Resolve version
-        id: resolve_version
-        run: |
-          PREV_TAG="${{ steps.get_version.outputs.previous_tag }}"
-          STABLE_VERSION=""
+      # - name: Resolve version
+      #   id: resolve_version
+      #   run: |
+      #     PREV_TAG="${{ steps.get_version.outputs.previous_tag }}"
+      #     STABLE_VERSION=""
 
-          if [[ "${{ github.ref }}" == refs/tags/v*.*.* ]]; then
-            STABLE_VERSION="${GITHUB_REF#refs/tags/v}"
-            echo "Triggered by tag push. Using version: $RESOLVED_VALUE"
+      #     if [[ "${{ github.ref }}" == refs/tags/v*.*.* ]]; then
+      #       STABLE_VERSION="${GITHUB_REF#refs/tags/v}"
+      #       echo "Triggered by tag push. Using version: $RESOLVED_VALUE"
 
-          elif [[ -n "$PREV_TAG" ]]; then
-            STABLE_VERSION="${PREV_TAG%-pre.*}"
-            echo "Not triggered by tag. Stripped pre-release from '$PREVIOUS_TAG' to get base version: $RESOLVED_VALUE"
+      #     elif [[ -n "$PREV_TAG" ]]; then
+      #       STABLE_VERSION="${PREV_TAG%-pre.*}"
+      #       echo "Not triggered by tag. Stripped pre-release from '$PREVIOUS_TAG' to get base version: $RESOLVED_VALUE"
 
-          else
-            echo "::error::Cannot resolve version" && exit 1
-          fi
+      #     else
+      #       echo "::error::Cannot resolve version" && exit 1
+      #     fi
 
-          echo "version=$STABLE_VERSION" >> "$GITHUB_OUTPUT"
+      #     echo "version=$STABLE_VERSION" >> "$GITHUB_OUTPUT"
 
-      - name: Create stable git tag
-        id: create_stable_tag
-        uses: mathieudutour/github-tag-action@v6.2
-        with:
-          github_token:        ${{ secrets.GITHUB_TOKEN }}
-          custom_tag:          ${{ steps.resolve_version.outputs.version }}
-          default_bump:        false
-          default_prerelease_bump: false
-          tag_prefix:          ''
+      # - name: Create stable git tag
+      #   id: create_stable_tag
+      #   uses: mathieudutour/github-tag-action@v6.2
+      #   with:
+      #     github_token:        ${{ secrets.GITHUB_TOKEN }}
+      #     custom_tag:          ${{ steps.resolve_version.outputs.version }}
+      #     default_bump:        false
+      #     default_prerelease_bump: false
+      #     tag_prefix:          ''
 
       - name: Set up Python
         uses: actions/setup-python@v4
